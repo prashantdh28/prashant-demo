@@ -20,5 +20,5 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Execute Jr file 
-      run: sudo java -jar /home/ubuntu/actions-runner/_work/prashant-demo/prashant-demo/target/
+    - name: Execute Jar File 
+      run: sudo java -jar /home/ubuntu/actions-runner/_work/prashant-demo/prashant-demo/target/springboot-example.jar &
