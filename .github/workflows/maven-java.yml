@@ -22,19 +22,9 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      run: mvn clean package 
+      run: mvn -B package --file pom.xml
 
-  deploy:
-
-    runs-on: prashant-runner
-
-    needs: build 
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-
-    - name: Deploy to EC2-Server
+    - name: Deploy to Production
       run: |
         # Copy the JAR file to the deployment directory
         sudo cp /home/ubuntu/actions-runner/_work/prashant-demo/prashant-demo/target/springboot-example.jar /home/ubuntu/prashant-demo/target/
