@@ -22,9 +22,19 @@ jobs:
         cache: maven
 
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn clean package 
 
-    - name: Deploy to Production
+  deploy:
+
+    runs-on: prashant-runner
+
+    needs: build 
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Deploy to EC2-Server
       run: |
         # Copy the JAR file to the deployment directory
         sudo cp /home/ubuntu/actions-runner/_work/prashant-demo/prashant-demo/target/springboot-example.jar /home/ubuntu/prashant-demo/target/
@@ -36,5 +46,3 @@ jobs:
 
         # Directly copy the Nginx configuration
         sudo systemctl restart nginx
-
-
