@@ -31,8 +31,10 @@ jobs:
 
         # Reload systemd and restart the service
         sudo systemctl daemon-reload
-        sudo systemctl enable springboot-example
-        sudo systemctl restart springboot-example
+        sudo systemctl enable prashant-demo
+        sudo systemctl restart prashant-demo
 
         # Directly copy the Nginx configuration
         sudo systemctl restart nginx
+
+
