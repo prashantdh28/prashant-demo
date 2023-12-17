@@ -27,7 +27,7 @@ jobs:
     - name: Deploy to Production
       run: |
         # Copy the JAR file to the deployment directory
-        sudo cp -f /home/ubuntu/prashant-demo/target/springboot-example.jar /home/ubuntu/prashant-demo/target/springboot-example.jar
+        sudo cp /home/ubuntu/actions-runner/_work/prashant-demo/prashant-demo/target/springboot-example.jar /home/ubuntu/prashant-demo/target/
 
         # Reload systemd and restart the service
         sudo systemctl daemon-reload
