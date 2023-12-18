@@ -27,7 +27,8 @@ jobs:
         run: |
           echo "Searching for JAR file..."
           JAR_FILE=$(find $GITHUB_WORKSPACE/target -name '*.jar')
-  
+          echo "JAR_FILE=${JAR_FILE}" >> $GITHUB_ENV
+
       - name: Deploy to EC2
         uses: appleboy/scp-action@master
         with:
