@@ -28,24 +28,6 @@ jobs:
           JAR_FILE=$(find $GITHUB_WORKSPACE/target -name '*.jar')
           echo "Found JAR file: $JAR_FILE"
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Add EC2 host to known_hosts
-        run: ssh-keyscan -H 43.204.114.46 >> ~/.ssh/known_hosts
-      - name: Deploy to EC2
-        run: |
-          echo "Copying JAR file to EC2 server..."
-          echo "${{ secrets.EC2_PRIVATE_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-          
-          rsync -zvhr -e "ssh -i private_key.pem" $JAR_FILE ubuntu@43.204.114.46:/home/ubuntu/pro/prashant-demo/target/
 
-          echo "Deploying on EC2 server..."
-          ssh -i private_key.pem ubuntu@43.204.114.46 "bash -s" << EOF
-            # Execute any additional deployment steps here
-            java -jar /home/ubuntu/pro/prashant-demo/target/$(basename $JAR_FILE)
-          EOF
 
 
