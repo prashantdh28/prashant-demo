@@ -3,7 +3,7 @@ name: United-Platform-Dev
 on:
   push:
     branches:
-      - development
+      - main
 
 jobs:
   build:
