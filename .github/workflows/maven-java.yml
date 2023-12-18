@@ -40,8 +40,6 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            ls -la  # Print the contents of the current directory
-            ls -la target  # Print the contents of the 'target' directory
             mkdir -p /home/ubuntu/pro/springboot-ec2-deploy
             cp target/springboot-example.jar /home/ubuntu/pro/springboot-ec2-deploy
 
