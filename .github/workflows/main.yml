@@ -46,6 +46,5 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
-            sudo chmod 755 /home/ubuntu/pro/prashant-demo/target/springboot-example.jar
-            java -jar /home/ubuntu/pro/prashant-demo/target/springboot-example.jar
+            java -jar /home/ubuntu/prashant-demo/target/springboot-example.jar
             sudo systemctl restart nginx 
