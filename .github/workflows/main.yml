@@ -32,6 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Add EC2 host to known_hosts
+        run: ssh-keyscan -H 43.204.114.46 >> ~/.ssh/known_hosts
       - name: Deploy to EC2
         run: |
           echo "Copying JAR file to EC2 server..."
