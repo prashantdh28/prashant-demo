@@ -23,11 +23,9 @@ jobs:
         run: mvn -B package --file pom.xml
       
       - name: Find JAR File
+        id: find_jar
         run: |
           echo "Searching for JAR file..."
           JAR_FILE=$(find $GITHUB_WORKSPACE/target -name '*.jar')
           echo "Found JAR file: $JAR_FILE"
-
-
-
-
+          echo "::set-output name=jar_file::$JAR_FILE"
