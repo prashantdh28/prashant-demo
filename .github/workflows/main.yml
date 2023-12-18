@@ -29,18 +29,3 @@ jobs:
           JAR_FILE=$(find $GITHUB_WORKSPACE/target -name '*.jar')
           echo "Found JAR file: $JAR_FILE"
           echo "::set-output name=jar_file::$JAR_FILE"
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Copy JAR to EC2
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
-          source: ${{ needs.build.outputs.jar_file }}
-          target: /home/ubuntu/pro/prashant-demo/target/ 
