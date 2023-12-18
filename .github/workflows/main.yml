@@ -39,8 +39,8 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
-          source: "target/your-artifact-id-*.jar"
-          target: "/home/ubuntu/pro/prashant-demo/target/"
+          source: "/home/runner/work/prashant-demo/prashant-demo/target/springboot-example.jar"
+          target: "/home/***/pro/prashant-demo/target/"
 
       - name: SSH into EC2 and restart application
         uses: appleboy/scp-action@master
