@@ -1,4 +1,4 @@
-name: United-Platform-Dev
+name: Java CI/CD
 
 on:
   push:
@@ -11,35 +11,41 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
-      - name: Find JAR File
-        run: |
-          echo "Searching for JAR file..."
-          find $GITHUB_WORKSPACE/target -name '*.jar'
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
+
     steps:
       - name: Copy JAR to EC2
-        uses: appleboy/ssh-action@master
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          source: "target/your-artifact-id-*.jar"
+          target: "/home/ubuntu/pro/prashant-demo/target/"
+
+      - name: SSH into EC2 and restart application
+        uses: appleboy/ssh-action@v0.5.5
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            mkdir -p $HOME/.ssh
-            echo "${{ secrets.EC2_HOST }} ${{ secrets.EC2_SSH_KEY }}" >> $HOME/.ssh/known_hosts
-            scp -i "$HOME/.ssh/id_rsa" $GITHUB_WORKSPACE/prashant-demo/target/springboot-example.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/***/pro/prashant-demo/target/
+            cd /path/to/destination/folder/
+            # Assuming your application is running as a service
+            sudo service nginx restart
+
