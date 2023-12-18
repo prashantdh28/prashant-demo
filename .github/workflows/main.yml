@@ -21,13 +21,14 @@ jobs:
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-      
+
       - name: Find JAR File
         run: |
           echo "Searching for JAR file..."
           JAR_FILE=$(find $GITHUB_WORKSPACE/target -name '*.jar')
           echo "Found JAR file: $JAR_FILE"
-      - name: Check Runner IP
-        run: echo "Runner IP: $RUNNER_IP"
 
-
+      # Note: GitHub Actions does not expose the runner's IP directly.
+      # This is a placeholder message; you may replace it with relevant information.
+      - name: Display Runner Information
+        run: echo "Runner information: Placeholder message"
