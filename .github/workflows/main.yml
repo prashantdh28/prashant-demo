@@ -30,12 +30,4 @@ jobs:
           echo "Found JAR file: $JAR_FILE"
           echo "::set-output name=jar_file::$JAR_FILE"
 
-      - name: Copy JAR to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
-          source: "${{ steps.find_jar.outputs.jar_file }}"
-          target: "/home/ubuntu/pro/prashant-demo/target/"
+  
