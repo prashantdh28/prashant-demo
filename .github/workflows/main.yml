@@ -27,17 +27,7 @@ jobs:
           echo "Searching for JAR file..."
           JAR_FILE=$(find $GITHUB_WORKSPACE/target -name '*.jar')
           echo "Found JAR file: $JAR_FILE"
+      - name: Check Runner IP
+        run: echo "Runner IP: $RUNNER_IP"
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
-          source: "$JAR_FILE"
-          target: "/home/ubuntu/pro/prashant-demo/target/$(basename $JAR_FILE)"
+
