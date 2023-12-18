@@ -21,14 +21,24 @@ jobs:
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-
+      
       - name: Find JAR File
+        id: find_jar
         run: |
           echo "Searching for JAR file..."
           JAR_FILE=$(find $GITHUB_WORKSPACE/target -name '*.jar')
           echo "Found JAR file: $JAR_FILE"
+          echo "::set-output name=jar_file::$JAR_FILE"
 
-      # Note: GitHub Actions does not expose the runner's IP directly.
-      # This is a placeholder message; you may replace it with relevant information.
-      - name: Display Runner Information
-        run: echo "Runner information: Placeholder message"
+    needs: build
+
+    steps:
+      - name: Copy JAR to EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          source: "/home/runner/work/prashant-demo/prashant-demo/target/springboot-example.jar"
+          target: "/home/ubuntu/pro/prashant-demo/target/"
