@@ -24,3 +24,24 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
+
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    needs: build
+
+    steps:
+      - name: Copy JAR to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cp $GITHUB_WORKSPACE/target/springboot-example.jar /home/ubuntu/prashant-demo/target/
+
+      - name: Restart Nginx
+        run: |
+          ssh -i ${{ secrets.EC2_PRIVATE_KEY }} -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo systemctl restart nginx"
