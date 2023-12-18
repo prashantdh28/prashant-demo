@@ -42,4 +42,5 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cp /home/runner/work/prashant-demo/prashant-demo/target/springboot-example.jar /home/ubuntu/pro/prashant-demo/target/
+            scp -i "$HOME/.ssh/id_rsa" $GITHUB_WORKSPACE/prashant-demo/target/springboot-example.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ubuntu/pro/prashant-demo/target/
+            
