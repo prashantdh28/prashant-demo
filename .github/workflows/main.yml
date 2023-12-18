@@ -45,3 +45,5 @@ jobs:
             # Execute any additional deployment steps here
             java -jar /home/ubuntu/pro/prashant-demo/target/$(basename $JAR_FILE)
           EOF
+
+
