@@ -46,4 +46,6 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
-            java -jar /home/ubuntu/prashant-demo/target/springboot-example.jar
+            sudo systemctl daemon-reload
+            sudo systemctl restart prashant-demo
+          
