@@ -38,3 +38,12 @@ jobs:
           port: ${{ secrets.PORT }}
           source: "./"
           target: "/home/ubuntu/prashant-demo/"
+      
+      - name: Setup new version on Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            java -jar /home/ubuntu/prashant-demo/target/springboot-example.jar
