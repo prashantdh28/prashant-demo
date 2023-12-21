@@ -48,4 +48,4 @@ jobs:
           script: |
             sudo systemctl restart prashant-demo
             sudo systemctl restart nginx
-        
+      
